@@ -1,0 +1,6 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 15px 30px rgb(0 0 0 / 15%);
+  }
