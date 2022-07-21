@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Personal from "./Components/personal-info";
-import Education from "./Components/educational-experience";
-import Practical from "./Components/practical-experience";
+import Personal from "./Components/Personal";
+import Education from "./Components/Education";
+import Experience from "./Components/Experience"
 class App extends Component {
 
     render() {
@@ -9,7 +9,7 @@ class App extends Component {
             <div  className="App">
                 <Personal />
                 <Education />
-                <Practical />
+                <Experience />
             </div>
         )
     }
