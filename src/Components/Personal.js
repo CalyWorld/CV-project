@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import uniqid from "uniqid";
-// import Preview from "./preview";
+import Preview from "./preview";
 
 class Personal extends Component {
     constructor() {
@@ -18,7 +18,7 @@ class Personal extends Component {
                 phone: "",
                 id: uniqid()
             },
-            tasks: [],
+            PersonalInfo: [],
         };
     }
 
@@ -50,9 +50,9 @@ class Personal extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { personalName, personalEmail, personalPhone } = this.state;
+        const { personalName, personalEmail, personalPhone, PersonalInfo } = this.state;
         this.setState({
-            tasks: this.state.tasks.concat(personalName, personalEmail, personalPhone),
+            PersonalInfo: PersonalInfo.concat(personalName, personalEmail, personalPhone),
             personalName: {
                 name: "",
                 id: uniqid()
@@ -69,7 +69,7 @@ class Personal extends Component {
     };
 
     render() {
-        const { personalName, personalEmail, personalPhone} = this.state;
+        const { personalName, personalEmail, personalPhone, PersonalInfo } = this.state;
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
@@ -89,7 +89,7 @@ class Personal extends Component {
                         <input type="tel" value={personalPhone.phone} onChange={this.handlePhoneChange}></input>
                     </div>
                 </form>
-                {/* <Preview tasks={tasks} /> */}
+                <Preview PersonalInfo={PersonalInfo} />
             </div>
         );
     };

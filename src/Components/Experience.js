@@ -1,63 +1,62 @@
 import React, { Component } from "react";
 import uniqid from "uniqid";
-import Preview from "./preview";
+
 
 class Experience extends Component {
     constructor() {
         super()
         this.state = {
-            Company: {
+            company: {
                 name: "",
                 id: uniqid()
             },
-            Position: {
+            position: {
                 title: "",
                 id: uniqid()
             },
-            Role: {
+            role: {
                 text: "",
                 id: uniqid()
             },
-            Period: {
-                Number: "",
+            period: {
+                number: "",
                 id: uniqid()
             },
-            task: []
         }
     }
 
     handleCompanyChange = (e) => {
         this.setState({
-            Company: {
+            company: {
                 name: e.target.value,
-                id: this.state.Company.id
+                id: this.state.company.id
             }
         });
     };
 
     handlePositionChange = (e) => {
         this.setState({
-            Position: {
+            position: {
                 title: e.target.value,
-                id: this.state.Position.id
+                id: this.state.position.id
             }
         });
     };
 
     handleRoleChange = (e) => {
         this.setState({
-            Role: {
+            role: {
                 text: e.target.value,
-                id: this.state.Role.id
+                id: this.state.role.id
             }
         });
     };
 
     handlePeriodChange = (e) => {
         this.setState({
-            Period: {
+            period: {
                 number: e.target.value,
-                id: this.state.Period.id
+                id: this.state.period.id
             }
         });
     };
@@ -65,28 +64,27 @@ class Experience extends Component {
 
 
     render() {
-        const { Company, Position, Role, Period, tasks } = this.state;
+        const { company, position, role, period } = this.state;
         return (
             <div>
                 <form>
                     <div className="experience-info">
                         <label>Company Name: </label>
-                        <input type="text" value={Company.text} onChange={this.handleCompanyChange}></input>
+                        <input type="text" value={company.text} onChange={this.handleCompanyChange}></input>
                     </div>
                     <div className="experience-info">
                         <label>Position Title: </label>
-                        <input text="text" value={Position.title} onChange={this.handlePositionChange}></input>
+                        <input text="text" value={position.title} onChange={this.handlePositionChange}></input>
                     </div>
                     <div className="experience-info">
                         <label>Role: </label>
-                        <input type="text" value={Role.text} onChange={this.handleRoleChange}></input>
+                        <input type="text" value={role.text} onChange={this.handleRoleChange}></input>
                     </div>
                     <div className="experience-info">
                         <label>Period of Stay: </label>
-                        <input type="number" value={Period.Number} onChange={this.handlePeriodChange}></input>
+                        <input type="number" value={period.number} onChange={this.handlePeriodChange}></input>
                     </div>
                 </form>
-                <Preview tasks={tasks} />
             </div>
         );
     };
