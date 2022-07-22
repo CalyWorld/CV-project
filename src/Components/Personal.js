@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import uniqid from "uniqid";
-import Preview from "./preview";
-
+import Preview from "./PreviewPersonal-info";
 class Personal extends Component {
     constructor() {
         super()
@@ -19,8 +18,10 @@ class Personal extends Component {
                 id: uniqid()
             },
             PersonalInfo: [],
+            mode: true
         };
     }
+
 
     handleNameChange = (e) => {
         this.setState({
@@ -50,7 +51,7 @@ class Personal extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { personalName, personalEmail, personalPhone, PersonalInfo } = this.state;
+        const { personalName, personalEmail, personalPhone, PersonalInfo} = this.state;
         this.setState({
             PersonalInfo: PersonalInfo.concat(personalName, personalEmail, personalPhone),
             personalName: {
@@ -65,16 +66,17 @@ class Personal extends Component {
                 phone: "",
                 id: uniqid()
             },
+            mode: false
         });
     };
 
     render() {
-        const { personalName, personalEmail, personalPhone, PersonalInfo } = this.state;
-        return (
+        const { personalName, personalEmail, personalPhone, PersonalInfo, mode } = this.state;
+        return mode ? (
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="button-container">
-                        <button>Preview</button>
+                        <button>Preview Personal Info</button>
                     </div>
                     <div className="personal-info">
                         <label>Name: </label>
@@ -89,9 +91,7 @@ class Personal extends Component {
                         <input type="tel" value={personalPhone.phone} onChange={this.handlePhoneChange}></input>
                     </div>
                 </form>
-                <Preview PersonalInfo={PersonalInfo} />
-            </div>
-        );
+            </div>) : (<Preview PersonalInfo={PersonalInfo} />);
     };
 }
 export default Personal;
