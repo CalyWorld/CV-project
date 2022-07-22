@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import uniqid from "uniqid";
+import PreviewEducation from "./PreviewEducation-info";
 class Education extends Component {
     constructor() {
         super()
@@ -20,6 +21,8 @@ class Education extends Component {
                 dateEnd: "",
                 id: uniqid()
             },
+            educationInfo: [],
+            mode: true
         };
     }
 
@@ -56,11 +59,39 @@ class Education extends Component {
         });
     }
 
+    onSubmit = (e) => {
+        e.preventDefault();
+        const { school, study, studyDate, studyEnd, educationInfo } = this.state
+        this.setState({
+            educationInfo: educationInfo.concat(school, study, studyDate, studyEnd),
+            school: {
+                name: "",
+                id: uniqid()
+            },
+            study: {
+                title: "",
+                id: uniqid()
+            },
+            studyDate: {
+                date: "",
+                id: uniqid()
+            },
+            studyEnd: {
+                dateEnd: "",
+                id: uniqid()
+            },
+            mode: false
+        })
+    }
+
     render() {
-        const { school, study, studyDate, studyEnd } = this.state;
-        return (
+        const { school, study, studyDate, studyEnd, educationInfo, mode } = this.state;
+        return mode ? (
             <div>
-                <form>
+                <form onSubmit={this.onSubmit}>
+                <div className="button-container">
+                        <button>Preview Education Info</button>
+                    </div>
                     <div className="educational-info">
                         <label>School Name: </label>
                         <input type="text" value={school.name} onChange={this.handleSchoolChange}></input>
@@ -78,8 +109,7 @@ class Education extends Component {
                         <input type="date" value={studyEnd.dateEnd} onChange={this.handleStudyDateEndChange}></input>
                     </div>
                 </form>
-            </div>
-        )
+            </div>) : (<PreviewEducation EducationInfo={educationInfo} />)
     }
 }
 
