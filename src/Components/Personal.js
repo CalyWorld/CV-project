@@ -7,15 +7,18 @@ class Personal extends Component {
         this.state = {
             personalName: {
                 name: "",
-                id: uniqid()
+                id: uniqid(),
+                editing: false
             },
             personalEmail: {
-                email: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             personalPhone: {
-                phone: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             PersonalInfo: [],
             mode: true
@@ -35,7 +38,7 @@ class Personal extends Component {
     handleEmailChange = (e) => {
         this.setState({
             personalEmail: {
-                email: e.target.value,
+                name: e.target.value,
                 id: this.state.personalEmail.id
             }
         });
@@ -43,7 +46,7 @@ class Personal extends Component {
     handlePhoneChange = (e) => {
         this.setState({
             personalPhone: {
-                phone: e.target.value,
+                name: e.target.value,
                 id: this.state.personalPhone.id
             }
         });
@@ -51,27 +54,57 @@ class Personal extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { personalName, personalEmail, personalPhone, PersonalInfo} = this.state;
+        const { personalName, personalEmail, personalPhone, PersonalInfo } = this.state;
         this.setState({
             PersonalInfo: PersonalInfo.concat(personalName, personalEmail, personalPhone),
             personalName: {
                 name: "",
-                id: uniqid()
+                id: uniqid(),
+                editing: false
             },
             personalEmail: {
-                email: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             personalPhone: {
-                phone: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             mode: false
         });
     };
 
+    handleEditing = () => {
+        this.setState({
+            editing: true,
+        });
+    }
+
+    setUpdate = (updatedText, id) => {
+        const { PersonalInfo } = this.state
+        this.setState({
+            personalInfo: PersonalInfo.map((person) => {
+                if (person.id === id) {
+                    person.name = updatedText;
+                }
+                return person;
+            })
+        });
+    }
+
+    handleUpdate = (e) => {
+        if (e.key === "Enter") {
+            this.setState({
+                editing: false
+            })
+        }
+    }
+
+
     render() {
-        const { personalName, personalEmail, personalPhone, PersonalInfo, mode } = this.state;
+        const { personalName, personalEmail, personalPhone, PersonalInfo, mode, editing } = this.state;
         return mode ? (
             <div>
                 <form onSubmit={this.onSubmit}>
@@ -84,14 +117,14 @@ class Personal extends Component {
                     </div>
                     <div className="personal-info">
                         <label>Email: </label>
-                        <input type="email" value={personalEmail.email} onChange={this.handleEmailChange}></input>
+                        <input type="email" value={personalEmail.name} onChange={this.handleEmailChange}></input>
                     </div>
                     <div className="personal-info">
                         <label>Phone:</label>
-                        <input type="tel" value={personalPhone.phone} onChange={this.handlePhoneChange}></input>
+                        <input type="tel" value={personalPhone.name} onChange={this.handlePhoneChange}></input>
                     </div>
                 </form>
-            </div>) : (<Preview PersonalInfo={PersonalInfo} />);
+            </div>) : (<Preview PersonalInfo={PersonalInfo} handleEditing={this.handleEditing} editing={editing} setUpdate={this.setUpdate} handleUpdate={this.handleUpdate} />);
     };
 }
 export default Personal;

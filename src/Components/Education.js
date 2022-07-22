@@ -7,21 +7,25 @@ class Education extends Component {
         this.state = {
             school: {
                 name: "",
-                id: uniqid()
+                id: uniqid(),
+                editing: false
             },
             study: {
-                title: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             studyDate: {
-                date: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             studyEnd: {
-                dateEnd: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
-            educationInfo: [],
+            EducationInfo: [],
             mode: true
         };
     }
@@ -37,7 +41,7 @@ class Education extends Component {
     handleStudyTitleChange = (e) => {
         this.setState({
             study: {
-                title: e.target.value,
+                name: e.target.value,
                 id: this.state.study.id
             },
         });
@@ -45,7 +49,7 @@ class Education extends Component {
     handleStudyDateChange = (e) => {
         this.setState({
             studyDate: {
-                date: e.target.value,
+                name: e.target.value,
                 id: this.state.studyDate.id
             },
         });
@@ -53,7 +57,7 @@ class Education extends Component {
     handleStudyDateEndChange = (e) => {
         this.setState({
             studyEnd: {
-                dateEnd: e.target.value,
+                name: e.target.value,
                 id: this.state.studyEnd.id
             },
         });
@@ -61,35 +65,64 @@ class Education extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { school, study, studyDate, studyEnd, educationInfo } = this.state
+        const { school, study, studyDate, studyEnd, EducationInfo } = this.state
         this.setState({
-            educationInfo: educationInfo.concat(school, study, studyDate, studyEnd),
+            EducationInfo: EducationInfo.concat(school, study, studyDate, studyEnd),
             school: {
                 name: "",
-                id: uniqid()
+                id: uniqid(),
+                editing: false
             },
             study: {
-                title: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             studyDate: {
-                date: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             studyEnd: {
-                dateEnd: "",
-                id: uniqid()
+                name: "",
+                id: uniqid(),
+                editing: false
             },
             mode: false
         })
     }
+    handleEditing = () => {
+        this.setState({
+            editing: true,
+        });
+    }
+
+    setUpdate = (updatedText, id) => {
+        const { EducationInfo } = this.state
+        this.setState({
+            EducationInfo: EducationInfo.map((education) => {
+                if (education.id === id) {
+                    education.name = updatedText;
+                }
+                return education;
+            })
+        });
+    }
+
+    handleUpdate = (e) => {
+        if (e.key === "Enter") {
+            this.setState({
+                editing: false
+            })
+        }
+    }
 
     render() {
-        const { school, study, studyDate, studyEnd, educationInfo, mode } = this.state;
+        const { school, study, studyDate, studyEnd, EducationInfo, mode, editing } = this.state;
         return mode ? (
             <div>
                 <form onSubmit={this.onSubmit}>
-                <div className="button-container">
+                    <div className="button-container">
                         <button>Preview Education Info</button>
                     </div>
                     <div className="educational-info">
@@ -109,7 +142,7 @@ class Education extends Component {
                         <input type="date" value={studyEnd.dateEnd} onChange={this.handleStudyDateEndChange}></input>
                     </div>
                 </form>
-            </div>) : (<PreviewEducation EducationInfo={educationInfo} />)
+            </div>) : (<PreviewEducation EducationInfo={EducationInfo} handleEditing={this.handleEditing} editing={editing} setUpdate={this.setUpdate} handleUpdate={this.handleUpdate} />)
     }
 }
 

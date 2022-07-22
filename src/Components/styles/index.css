@@ -51,3 +51,8 @@ label {
   display: flex;
   justify-content: center;
 }
+
+.textInput{
+  width: 80%;
+  padding: 10px;
+}
