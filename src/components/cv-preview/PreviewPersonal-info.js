@@ -15,7 +15,7 @@ const Preview = (props) => {
 
     const personalName = PersonalInfo.map((personalInfo) =>
         <div key={personalInfo.id}>
-            <div className="preview-personal-info">
+            <div className="preview-info">
                 <p className="text-info">{personalInfo.name}</p>
                 <div className="text-button-container">
                 <button className="button-edit" type="button" onClick={handleEditing} style={viewMode}>Edit Text</button>

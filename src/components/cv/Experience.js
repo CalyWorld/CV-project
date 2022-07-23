@@ -127,7 +127,7 @@ class Experience extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="button-container">
-                        <button>Preview Experience Info</button>
+                        <button className="button-submit">Preview Experience Info</button>
                     </div>
                     <div className="experience-info">
                         <label>Company Name: </label>

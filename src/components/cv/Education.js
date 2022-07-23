@@ -123,7 +123,7 @@ class Education extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="button-container">
-                        <button>Preview Education Info</button>
+                        <button className="button-submit">Preview Education Info</button>
                     </div>
                     <div className="educational-info">
                         <label>School Name: </label>

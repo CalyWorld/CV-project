@@ -109,7 +109,7 @@ class Personal extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="button-container">
-                        <button>Preview Personal Info</button>
+                        <button className="button-submit">Preview Personal Info</button>
                     </div>
                     <div className="personal-info">
                         <label>Name: </label>
