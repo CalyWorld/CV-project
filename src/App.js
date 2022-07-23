@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Personal from "./Components/Personal";
-import Education from "./Components/Education";
-import Experience from "./Components/Experience"
+import Personal from "./components/cv/Personal";
+import Education from "./components/cv/Education";
+import Experience from "./components/cv/Experience"
 
 
 class App extends Component {
