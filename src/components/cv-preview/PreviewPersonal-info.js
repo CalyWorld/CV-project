@@ -1,35 +1,41 @@
-import React from "react";
-import index from "../css/index.css";
+import React, { useState } from "react";
+import "../css/index.css";
+import Personal from "../cv/Personal";
 
-const Preview = (props) => {
-    const { PersonalInfo, handleEditing, editing, setUpdate, handleUpdate } = props;
+const Preview = ({ personal }) => {
+    const [isEditing, setEditForm] = useState(true);
 
-    let viewMode = {};
-    let editMode = {};
+    const editForm = () => {
+        setEditForm(!isEditing);
+    };
+    return isEditing ? (
+        personal.map((personalType) =>
+            <div key={personalType.id}>
+                <div className="preview-info">
+                    <div className="text-info">
+                        <label>Name: </label>
+                        {personalType.name}
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Task</button>
 
-    if (editing) {
-        viewMode.display = "none";
-    } else {
-        editMode.display = "none";
-    }
-
-    const personalName = PersonalInfo.map((personalInfo) =>
-        <div key={personalInfo.id}>
-            <div className="preview-info">
-                <p className="text-info">{personalInfo.name}</p>
-                <div className="text-button-container">
-                <button className="button-edit" type="button" onClick={handleEditing} style={viewMode}>Edit Text</button>
+                    </div>
+                    <div className="text-info">
+                        <label>Email: </label>
+                        {personalType.email}
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Task</button>
+                    </div>
+                    <div className="text-info">
+                        <label>Phone: </label>
+                        {personalType.phone}
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Task</button>
+                    </div>
                 </div>
-                <input type="text" className={index.textInput} style={editMode} value={personalInfo.name} onChange={(e) => setUpdate(e.target.value, personalInfo.id)} onKeyDown={handleUpdate}></input>
             </div>
-        </div>
-    );
-
-
-    return (
-        <div>{personalName}</div>
-    );
+        )) : (
+        personal.map((personalType) =>
+            <div key={personalType.id}>
+                <Personal name={personalType.name} email={personalType.email} phone={personalType.phone} />
+            </div>
+        )
+    )
 }
-
-
 export default Preview;
