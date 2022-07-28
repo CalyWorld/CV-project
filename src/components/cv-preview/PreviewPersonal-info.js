@@ -15,21 +15,30 @@ const Preview = ({ personal }) => {
                     <div className="text-info">
                         <label>Name: </label>
                         {personalType.name}
-                        <button className="button-edit" type="button" onClick={editForm}>Edit Task</button>
-
                     </div>
+                    <div className="button-container">
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Name</button>
+                    </div>
+                </div>
+                <div className="preview-info">
                     <div className="text-info">
                         <label>Email: </label>
                         {personalType.email}
-                        <button className="button-edit" type="button" onClick={editForm}>Edit Task</button>
                     </div>
+                    <div className="button-container">
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Email</button>
+                    </div>
+                </div>
+                <div className="preview-info">
                     <div className="text-info">
                         <label>Phone: </label>
                         {personalType.phone}
-                        <button className="button-edit" type="button" onClick={editForm}>Edit Task</button>
+                    </div>
+                    <div className="button-container">
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Phone</button>
                     </div>
                 </div>
-            </div>
+            </div >
         )) : (
         personal.map((personalType) =>
             <div key={personalType.id}>

@@ -32,9 +32,8 @@ const Education = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setEducation(addEducationInfo);
-        setMode(false);
+        setMode(!modeEducation);
         setEducation(initialEducationInfo);
-        console.log(education);
     };
 
     return modeEducation ? (

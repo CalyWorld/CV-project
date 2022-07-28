@@ -1,32 +1,51 @@
-import React from "react";
-import index from "../css/index.css";
+import React, { useState } from "react";
+import "../css/index.css";
+import Education from "../cv/Education";
 
-const PreviewEducation = (props) => {
-    const { EducationInfo, handleEditing, editing, setUpdate, handleUpdate } = props;
+const PreviewEducation = ({ education }) => {
 
-    let viewMode = {};
-    let editMode = {};
+    const [isEditing, setEditForm] = useState(true);
 
-    if (editing) {
-        viewMode.display = "none";
-    } else {
-        editMode.display = "none";
-    }
-
-    const educationInfo = EducationInfo.map((educationInfo) =>
-        <div key={educationInfo.id}>
-            <div className="preview-info">
-                <p className="text-info">{educationInfo.name}</p>
-                <div className="text-button-container">
-                    <button className="button-edit" type="button" onClick={handleEditing} style={viewMode}>Edit Text</button>
+    const editForm = () => {
+        setEditForm(!isEditing);
+    };
+    return isEditing ? (
+        education.map((educationType) =>
+            <div key={educationType.id}>
+                <div className="preview-info">
+                    <div className="text-info">
+                        <label>School Name: </label>
+                        {educationType.schoolName}
+                    </div>
+                    <div className="button-container">
+                        <button className="button-edit" type="button" onClick={editForm}>Edit School Name</button>
+                    </div>
                 </div>
-                <input type="text" className={index.textInput} style={editMode} value={educationInfo.name} onChange={(e) => setUpdate(e.target.value, educationInfo.id)} onKeyDown={handleUpdate}></input>
+                <div className="preview-info">
+                    <div className="text-info">
+                        <label>Course: </label>
+                        {educationType.studyTitle}
+                    </div>
+                    <div className="button-container">
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Course</button>
+                    </div>
+                </div>
+                <div className="preview-info">
+                    <div className="text-info">
+                        <label>Date of Study from: </label>
+                        {educationType.studyDate} --- {educationType.studyEndDate}
+                    </div>
+                    <div className="button-container">
+                        <button className="button-edit" type="button" onClick={editForm}>Edit Date</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    );
-
-    return (
-        <div>{educationInfo}</div>
+        )) : (
+        education.map((educationType) =>
+            <div key={educationType.id}>
+                <Education schoolName={educationType.schoolName} studyTitle={educationType.studyTitle} studyDate={educationType.studyDate} studyEndDate={educationType.studyEndDate} />
+            </div>
+        )
     )
 }
 

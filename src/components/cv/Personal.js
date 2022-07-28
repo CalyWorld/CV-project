@@ -30,7 +30,7 @@ const Personal = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setPersonal(addPersonalInfo);
-        setMode(false);
+        setMode(!mode);
         setPersonal(initialPersonalInfo);
     };
 
