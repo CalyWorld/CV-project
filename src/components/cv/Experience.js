@@ -1,153 +1,68 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import uniqid from "uniqid";
 import PreviewExperience from "../cv-preview/PreviewExperience";
-class Experience extends Component {
-    constructor() {
-        super()
-        this.state = {
-            company: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            position: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            role: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            period: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            ExperienceInfo: [],
-            mode: true
-        }
-    }
 
-    handleCompanyChange = (e) => {
-        this.setState({
-            company: {
-                name: e.target.value,
-                id: this.state.company.id
-            }
+const Experience = (props) => {
+
+    const { companyName, position, role, period } = props;
+
+    const initialExperienceInfo = {
+        companyName: companyName || "",
+        position: position || "",
+        role: role || "",
+        period: period || "",
+        id: uniqid()
+    };
+
+    const [experience, setExperience] = useState(initialExperienceInfo);
+    const [experienceInfo, setExperienceInfo] = useState([]);
+    const [modeExperience, setMode] = useState(true);
+
+    const handleChange = (e) => {
+        setExperience({
+            ...experience,
+            [e.target.name]: e.target.value
         });
     };
 
-    handlePositionChange = (e) => {
-        this.setState({
-            position: {
-                name: e.target.value,
-                id: this.state.position.id
-            }
-        });
+    const addExperienceInfo = () => {
+        setExperienceInfo([...experienceInfo, experience]);
     };
 
-    handleRoleChange = (e) => {
-        this.setState({
-            role: {
-                name: e.target.value,
-                id: this.state.role.id
-            }
-        });
-    };
-
-    handlePeriodChange = (e) => {
-        this.setState({
-            period: {
-                name: e.target.value,
-                id: this.state.period.id
-            }
-        });
-    };
-
-    onSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const { company, position, role, period, ExperienceInfo } = this.state;
-        this.setState({
-            ExperienceInfo: ExperienceInfo.concat(company, position, role, period),
-            company: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            position: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            role: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            period: {
-                name: "",
-                id: uniqid(),
-                editing: false
-            },
-            mode: false
-        })
+        setExperience(addExperienceInfo);
+        setMode(!modeExperience);
+        setExperience(initialExperienceInfo);
     }
 
-    handleEditing = () => {
-        this.setState({
-            editing: true,
-        });
-    }
+    return modeExperience ? (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <div className="button-container">
+                    <button className="button-submit">Preview Experience Info</button>
+                </div>
+                <div className="experience-info">
+                    <label>Company Name: </label>
+                    <input type="text" name="companyName" value={experience.companyName} onChange={handleChange}></input>
+                </div>
+                <div className="experience-info">
+                    <label>Position Title: </label>
+                    <input text="text" name="position" value={experience.position} onChange={handleChange}></input>
+                </div>
+                <div className="experience-info">
+                    <label>Role: </label>
+                    <input type="text" name="role" value={experience.role} onChange={handleChange}></input>
+                </div>
+                <div className="experience-info">
+                    <label>Period of Stay: </label>
+                    <input type="number" name="period" value={experience.period} onChange={handleChange}></input>
+                </div>
+            </form>
+        </div>) : (
+        <PreviewExperience experienceInfo={experienceInfo} />
+    )
 
-    setUpdate = (updatedText, id) => {
-        const { ExperienceInfo } = this.state
-        this.setState({
-            ExperienceInfo: ExperienceInfo.map((experience) => {
-                if (experience.id === id) {
-                    experience.name = updatedText;
-                }
-                return experience;
-            })
-        });
-    }
-
-    handleUpdate = (e) => {
-        if (e.key === "Enter") {
-            this.setState({
-                editing: false
-            })
-        }
-    }
-
-    render() {
-        const { company, position, role, period, ExperienceInfo, mode, editing } = this.state;
-        return mode ? (
-            <div>
-                <form onSubmit={this.onSubmit}>
-                    <div className="button-container">
-                        <button className="button-submit">Preview Experience Info</button>
-                    </div>
-                    <div className="experience-info">
-                        <label>Company Name: </label>
-                        <input type="text" value={company.name} onChange={this.handleCompanyChange}></input>
-                    </div>
-                    <div className="experience-info">
-                        <label>Position Title: </label>
-                        <input text="text" value={position.name} onChange={this.handlePositionChange}></input>
-                    </div>
-                    <div className="experience-info">
-                        <label>Role: </label>
-                        <input type="text" value={role.name} onChange={this.handleRoleChange}></input>
-                    </div>
-                    <div className="experience-info">
-                        <label>Period of Stay: </label>
-                        <input type="number" value={period.name} onChange={this.handlePeriodChange}></input>
-                    </div>
-                </form>
-            </div>) : (<PreviewExperience ExperienceInfo={ExperienceInfo} handleEditing={this.handleEditing} editing={editing} setUpdate={this.setUpdate} handleUpdate={this.handleUpdate} />)
-    }
 }
 
 export default Experience;
