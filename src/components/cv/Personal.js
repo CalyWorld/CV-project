@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import Preview from "../cv-preview/PreviewPersonal-info";
 import uniqid from "uniqid";
 
-const Personal = () => {
+const Personal = (props) => {
+    const { name, email, phone } = props;
+
     const initialPersonalInfo = {
-        name: "",
-        email: "",
-        phone: "",
+        name: name || "",
+        email: email || "",
+        phone: phone || "",
         id: uniqid()
     };
 
     const [personal, setPersonal] = useState(initialPersonalInfo);
     const [personalInfo, setPersonalInfo] = useState([]);
     const [mode, setMode] = useState(true);
-    const [reset, setReset] = useState("");
 
     const handleChange = (e) => {
         setPersonal({
@@ -22,18 +23,16 @@ const Personal = () => {
         });
     };
 
-    const addPersonalInfo = ()=>{
+    const addPersonalInfo = () => {
         setPersonalInfo([...personalInfo, personal]);
-        setMode(false);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setPersonal(addPersonalInfo);
-        setReset(reset);
-        console.log(personal);
+        setMode(false);
+        setPersonal(initialPersonalInfo);
     };
-
 
     return mode ? (
         <div>
@@ -55,7 +54,7 @@ const Personal = () => {
                 </div>
             </form>
         </div>) : (
-        <Preview personal={personalInfo} mode={mode}/>
+        <Preview personal={personalInfo} />
     )
 }
 export default Personal;
