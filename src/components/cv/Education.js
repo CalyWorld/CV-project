@@ -3,7 +3,7 @@ import uniqid from "uniqid";
 import PreviewEducation from "../cv-preview/PreviewEducation-info";
 
 const Education = (props) => {
-    const {schoolName, studyTitle, studyDate, studyEndDate} = props;
+    const { schoolName, studyTitle, studyDate, studyEndDate } = props;
 
 
     const initialEducationInfo = {
@@ -31,9 +31,13 @@ const Education = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setEducation(addEducationInfo);
-        setMode(!modeEducation);
-        setEducation(initialEducationInfo);
+        if (["schoolName", "studyTitle", "studyDate", "studyEndDate"].filter((input) => education[input] === "").length === 0) {
+            setEducation(addEducationInfo);
+            setMode(!modeEducation);
+            setEducation(initialEducationInfo);
+        }else{
+            console.log("form empty");
+        }
     };
 
     return modeEducation ? (

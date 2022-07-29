@@ -29,9 +29,13 @@ const Personal = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setPersonal(addPersonalInfo);
-        setMode(!mode);
-        setPersonal(initialPersonalInfo);
+        if (["name", "email", "phone"].filter((input) => personal[input] === "").length === 0) {
+            setPersonal(addPersonalInfo);
+            setMode(!mode);
+            setPersonal(initialPersonalInfo);
+        }else{
+            console.log("form empty");
+        }
     };
 
     return mode ? (

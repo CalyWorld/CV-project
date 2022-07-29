@@ -31,9 +31,13 @@ const Experience = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setExperience(addExperienceInfo);
-        setMode(!modeExperience);
-        setExperience(initialExperienceInfo);
+        if (["companyName", "position", "role", "period"].filter((input) => experience[input] === "").length === 0) {
+            setExperience(addExperienceInfo);
+            setMode(!modeExperience);
+            setExperience(initialExperienceInfo);
+        }else{
+            console.log("form empty");
+        }
     }
 
     return modeExperience ? (
