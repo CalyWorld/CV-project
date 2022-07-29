@@ -25,14 +25,11 @@ const Education = (props) => {
         });
     };
 
-    const addEducationInfo = () => {
-        setEducationInfo([...Education, education]);
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (["schoolName", "studyTitle", "studyDate", "studyEndDate"].filter((input) => education[input] === "").length === 0) {
-            setEducation(addEducationInfo);
+            setEducationInfo([...Education, education]);
             setMode(!modeEducation);
             setEducation(initialEducationInfo);
         }else{

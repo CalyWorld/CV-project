@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "../css/index.css";
 import Education from "../cv/Education";
 
-const PreviewEducation = ({ education }) => {
+const PreviewEducation = (props) => {
 
+    const { education } = props;
     const [isEditing, setEditForm] = useState(true);
 
     const editForm = () => {

@@ -23,14 +23,11 @@ const Personal = (props) => {
         });
     };
 
-    const addPersonalInfo = () => {
-        setPersonalInfo([...personalInfo, personal]);
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (["name", "email", "phone"].filter((input) => personal[input] === "").length === 0) {
-            setPersonal(addPersonalInfo);
+            setPersonalInfo([...personalInfo, personal]);
             setMode(!mode);
             setPersonal(initialPersonalInfo);
         }else{

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Experience from "../cv/Experience";
 import "../css/index.css"
-const PreviewExperience = ({ experienceInfo }) => {
+const PreviewExperience = (props) => {
 
+    const { experienceInfo } = props;
     const [isEditing, setEditForm] = useState(true);
 
     const editForm = () => {
@@ -41,7 +42,7 @@ const PreviewExperience = ({ experienceInfo }) => {
                 <div className="preview-info">
                     <div className="text-info">
                         <label>Period: </label>
-                        {experienceType.period}
+                        {experienceType.period} years
                     </div>
                     <div className="button-container">
                         <button className="button-edit" type="button" onClick={editForm}>Edit Period of Stay</button>

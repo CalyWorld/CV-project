@@ -25,14 +25,11 @@ const Experience = (props) => {
         });
     };
 
-    const addExperienceInfo = () => {
-        setExperienceInfo([...experienceInfo, experience]);
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (["companyName", "position", "role", "period"].filter((input) => experience[input] === "").length === 0) {
-            setExperience(addExperienceInfo);
+            setExperienceInfo([...experienceInfo, experience]);
             setMode(!modeExperience);
             setExperience(initialExperienceInfo);
         }else{
